@@ -67,7 +67,7 @@ LOG_TEXT_P = """
 ID - <code>{}</code>
 Name - {}
 """
-@Mbot.on_message(filters.incoming & filters.regex(r'https?://open.spotify.com[^\s]+') | filters.incoming & filters.regex(r'https?://spotify.link[^\s]+'), group=-2)
+@Mbot.on_message(filters.incoming & filters.regex(r'https?://open.spotify.com[^\s]+') | filters.incoming & filters.regex(r'https?://spotify.link[^\s]+'), group=-1)
 async def spotify_dl(Mbot,message: Message):
     if MAIN:
        await message.reply_text(f"Bot Is Under Maintenance ⚠️")
@@ -144,8 +144,9 @@ async def spotify_dl(Mbot,message: Message):
         pass
         chat=message.chat.id
         await Mbot.leave_chat(chat)
-        k = await Mbot.send_message(-1001744816254,f"{chat} {message.chat.username} or {message.from_user.id}")
-        await  k.pin()
+        if BUG:
+           k = await Mbot.send_message(BUG,f"{chat} {message.chat.username} or {message.from_user.id}")
+           await  k.pin()
         sp = f"I have left from {chat} reason: I Am Not  Admin "
         await Mbot.send_message(message.from_user.id,f"{sp}") 
     try:
@@ -507,8 +508,9 @@ async def spotify_dl(Mbot,message: Message):
         chat=message.chat.id
         try:
             await Mbot.leave_chat(chat)
-            k = await Mbot.send_message(-1001744816254,f"{chat} {message.chat.username} or {message.from_user.id}")
-            await  k.pin()
+            if BUG:
+               k = await Mbot.send_message(BUG,f"{chat} {message.chat.username} or {message.from_user.id}")
+               await  k.pin()
             sp = f"I have left from {chat} reason: I Am Not  Admin "
             await Mbot.send_message(message.from_user.id,f"{sp}")
         except:
